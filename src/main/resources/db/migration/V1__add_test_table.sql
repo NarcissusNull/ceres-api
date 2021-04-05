@@ -1,0 +1,7 @@
+CREATE TABLE GOODS(
+  id INT primary key NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL,
+  `type` INT NOT NULL,
+  `createdAt` DATETIME DEFAULT NOW(),
+  `updatedAt` DATETIME DEFAULT NOW()
+);
