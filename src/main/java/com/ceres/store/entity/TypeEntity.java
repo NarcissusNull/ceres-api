@@ -1,6 +1,5 @@
 package com.ceres.store.entity;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -9,21 +8,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Builder;
 import lombok.Data;
 
-@Entity
 @Data
-@Table(name = "GOODS")
-public class GoodsEntity {
+@Entity
+@Table(name = "type")
+@Builder
+public class TypeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String name;
-    String main;
-    BigDecimal price;
-    Long type;
-    String describe;
     Date createdAt;
     Date updatedAt;
 }
