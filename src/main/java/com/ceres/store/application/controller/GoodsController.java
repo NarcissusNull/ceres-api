@@ -2,11 +2,15 @@ package com.ceres.store.application.controller;
 
 import java.util.List;
 
+import com.ceres.store.application.dto.GoodsCreateRequest;
 import com.ceres.store.application.service.GoodsService;
 import com.ceres.store.entity.GoodsEntity;
+import com.ceres.store.entity.TypeEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,5 +25,14 @@ public class GoodsController {
     public List<GoodsEntity> searchGoods() {
         return goodsService.search();
     }
-    
+
+    @GetMapping(value = "/types")
+    public List<TypeEntity> queryTypes() {
+        return goodsService.queryTypes();
+    }
+
+    @PostMapping(value = "create")
+    public GoodsEntity create(@RequestBody GoodsCreateRequest request) {
+        return goodsService.create(request);
+    }
 }
