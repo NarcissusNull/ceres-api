@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import org.springframework.web.multipart.MultipartFile;
 
 import io.minio.MinioClient;
+import io.minio.PutObjectOptions;
 import io.minio.errors.InvalidEndpointException;
 import io.minio.errors.InvalidPortException;
 import io.minio.errors.MinioException;
@@ -34,9 +35,7 @@ public class MinioRepository {
             }
 
             // 使用putObject上传一个文件到存储桶中。
-            minioClient.putObject(bucket, file.getName(), file.getInputStream(), null);
-            System.out.println(
-                    "/home/user/Photos/asiaphotos.zip is successfully uploaded as asiaphotos.zip to `asiatrip` bucket.");
+            minioClient.putObject(bucket, file.getOriginalFilename(), file.getInputStream(), new PutObjectOptions(-1, 5L * 1024 * 1024 * 1024));
         } catch (MinioException | InvalidKeyException | IllegalArgumentException | NoSuchAlgorithmException
                 | IOException e) {
             System.out.println("Error occurred: " + e);
