@@ -1,6 +1,7 @@
 CREATE TABLE goods(
   id INT primary key NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
+  `main` VARCHAR(2000) NULL,
   `price` DECIMAL(10,2) not null,
   `type` INT NULL,
   `describe` VARCHAR(2000) null,
