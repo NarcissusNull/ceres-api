@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 @RestController
 @RequestMapping(value = "/goods")
@@ -42,6 +40,11 @@ public class GoodsController {
     @GetMapping(value="/{size}")
     public List<GoodsEntity> queryGoods(@PathVariable("size") int size) {
         return goodsService.queryGoods(size);
+    }
+
+    @GetMapping(value = "/detail/{id}")
+    public GoodsEntity getDetail(@PathVariable("id") Long id) {
+        return goodsService.getDetail(id);
     }
     
 }

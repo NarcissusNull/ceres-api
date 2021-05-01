@@ -30,16 +30,17 @@ public class GoodsService {
     }
 
     public GoodsEntity create(GoodsCreateRequest request) {
-        return goodsRepository.save(GoodsEntity.builder()
-            .name(request.getName())
-            .price(request.getPrice())
-            .main(request.getImages().get(0))
-            .describe(request.getImages().stream().collect(Collectors.joining(",")))
-            .build());
-	}
+        return goodsRepository.save(
+                GoodsEntity.builder().name(request.getName()).price(request.getPrice()).main(request.getImages().get(0))
+                        .describe(request.getImages().stream().collect(Collectors.joining(","))).build());
+    }
 
     public List<GoodsEntity> queryGoods(int size) {
         return goodsRepository.findAll().subList(0, size);
+    }
+
+    public GoodsEntity getDetail(Long id) {
+        return goodsRepository.findById(id).get();
     }
 
 }
