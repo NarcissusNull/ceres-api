@@ -38,4 +38,8 @@ public class GoodsService {
             .build());
 	}
 
+    public List<GoodsEntity> queryGoods(int size) {
+        return goodsRepository.findAll().subList(0, size);
+    }
+
 }
