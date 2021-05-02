@@ -43,4 +43,8 @@ public class GoodsService {
         return goodsRepository.findById(id).get();
     }
 
+	public List<GoodsEntity> search(String value) {
+		return goodsRepository.findByNameLike("%" + value + "%");
+	}
+
 }

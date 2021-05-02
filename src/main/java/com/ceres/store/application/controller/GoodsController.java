@@ -37,7 +37,7 @@ public class GoodsController {
         return goodsService.create(request);
     }
 
-    @GetMapping(value="/{size}")
+    @GetMapping(value = "/{size}")
     public List<GoodsEntity> queryGoods(@PathVariable("size") int size) {
         return goodsService.queryGoods(size);
     }
@@ -46,5 +46,10 @@ public class GoodsController {
     public GoodsEntity getDetail(@PathVariable("id") Long id) {
         return goodsService.getDetail(id);
     }
-    
+
+    @GetMapping(value = "/search/{value}")
+    public List<GoodsEntity> search(@PathVariable("value") String value) {
+        return goodsService.search(value);
+    }
+
 }
