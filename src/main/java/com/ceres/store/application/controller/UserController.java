@@ -19,8 +19,13 @@ public class UserController {
     private UserService userService;
     
     @PostMapping(value="/login")
-    public UserEntity postMethodName(@RequestBody UserEntity user) {
+    public UserEntity login(@RequestBody UserEntity user) {
         return userService.login(user);
+    }
+
+    @PostMapping(value="/signup")
+    public UserEntity signup(@RequestBody UserEntity user) {
+        return userService.signup(user);
     }
     
 }
