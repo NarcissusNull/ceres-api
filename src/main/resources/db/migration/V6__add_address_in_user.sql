@@ -1,0 +1,1 @@
+ALTER TABLE `user` ADD `address` VARCHAR(200);

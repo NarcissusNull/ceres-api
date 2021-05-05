@@ -2,6 +2,7 @@ package com.ceres.store.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,18 +16,17 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(name = "user")
+@Table(name = "cart")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserEntity {
+public class CartEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    String name;
-    String password;
-    String role;
+    Long user;
+    Long goods;
     Date createdAt;
     Date updatedAt;
-    String address;
 }

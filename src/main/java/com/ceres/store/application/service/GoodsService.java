@@ -4,13 +4,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.ceres.store.application.dto.GoodsCreateRequest;
+import com.ceres.store.entity.CartEntity;
 import com.ceres.store.entity.GoodsEntity;
 import com.ceres.store.entity.TypeEntity;
+import com.ceres.store.infrastructure.CartRepository;
 import com.ceres.store.infrastructure.GoodsRepository;
 import com.ceres.store.infrastructure.TypeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import afu.org.checkerframework.checker.units.qual.C;
 
 @Service
 public class GoodsService {
@@ -20,6 +24,9 @@ public class GoodsService {
 
     @Autowired
     private TypeRepository typeRepository;
+
+    @Autowired
+    private CartRepository cartRepository;
 
     public List<GoodsEntity> search() {
         return goodsRepository.findAll();
@@ -43,8 +50,16 @@ public class GoodsService {
         return goodsRepository.findById(id).get();
     }
 
-	public List<GoodsEntity> search(String value) {
-		return goodsRepository.findByNameLike("%" + value + "%");
-	}
+    public List<GoodsEntity> search(String value) {
+        return goodsRepository.findByNameLike("%" + value + "%");
+    }
+
+    public List<GoodsEntity> searchCart(Long user) {
+        return cartRepository.findAllByUser(user).stream().map(cart -> goodsRepository.findById(cart.getGoods()).get()).collect(Collectors.toList());
+    }
+
+    public void removeCart(Long id, Long user) {
+        cartRepository.deleteAll(cartRepository.findAllByUserAndGoods(user, id));
+    }
 
 }
