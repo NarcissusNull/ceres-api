@@ -1,0 +1,1 @@
+ALTER TABLE `goods` ADD `deleted` tinyint(1) default 0;

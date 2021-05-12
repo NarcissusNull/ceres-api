@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.ceres.store.application.dto.GoodsCreateRequest;
-import com.ceres.store.entity.CartEntity;
 import com.ceres.store.entity.GoodsEntity;
 import com.ceres.store.entity.TypeEntity;
 import com.ceres.store.infrastructure.CartRepository;
@@ -13,8 +12,7 @@ import com.ceres.store.infrastructure.TypeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import afu.org.checkerframework.checker.units.qual.C;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class GoodsService {
@@ -29,7 +27,7 @@ public class GoodsService {
     private CartRepository cartRepository;
 
     public List<GoodsEntity> search() {
-        return goodsRepository.findAll();
+        return goodsRepository.findAll().stream().filter(goods -> !goods.isDeleted()).collect(Collectors.toList());
     }
 
     public List<TypeEntity> queryTypes() {
@@ -43,7 +41,7 @@ public class GoodsService {
     }
 
     public List<GoodsEntity> queryGoods(int size) {
-        return goodsRepository.findAll().subList(0, size);
+        return goodsRepository.findAll().stream().filter(goods -> !goods.isDeleted()).collect(Collectors.toList()).subList(0, size);
     }
 
     public GoodsEntity getDetail(Long id) {
@@ -51,7 +49,7 @@ public class GoodsService {
     }
 
     public List<GoodsEntity> search(String value) {
-        return goodsRepository.findByNameLike("%" + value + "%");
+        return goodsRepository.findByNameLike("%" + value + "%").stream().filter(goods -> !goods.isDeleted()).collect(Collectors.toList());
     }
 
     public List<GoodsEntity> searchCart(Long user) {
@@ -60,6 +58,12 @@ public class GoodsService {
 
     public void removeCart(Long id, Long user) {
         cartRepository.deleteAll(cartRepository.findAllByUserAndGoods(user, id));
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        GoodsEntity goods =  goodsRepository.findById(id).get();
+        goods.setDeleted(true);
     }
 
 }

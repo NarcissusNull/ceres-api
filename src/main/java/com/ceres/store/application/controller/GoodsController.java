@@ -77,5 +77,8 @@ public class GoodsController {
         cartRepository.deleteAll(cartRepository.findAllByUser(user));
     }
 
-
+    @GetMapping(value = "/delete/{id}")
+    public void removeGoods(@PathVariable("id") Long id) {
+        this.goodsService.delete(id);
+    }
 }

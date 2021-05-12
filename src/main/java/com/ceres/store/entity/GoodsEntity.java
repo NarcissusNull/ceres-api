@@ -35,4 +35,7 @@ public class GoodsEntity {
     String describe;
     Date createdAt;
     Date updatedAt;
+    
+    @Column(name="deleted",columnDefinition="tinyint default 0")
+    boolean deleted;
 }
