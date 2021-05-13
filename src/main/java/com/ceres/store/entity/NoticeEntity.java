@@ -2,6 +2,7 @@ package com.ceres.store.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,7 +29,9 @@ public class NoticeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Column(name = "[user]")
     Long user;
+    @Column(name = "[check]")
     Date check;
 
     @CreationTimestamp

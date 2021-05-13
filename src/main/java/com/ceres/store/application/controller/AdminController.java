@@ -2,11 +2,12 @@ package com.ceres.store.application.controller;
 
 import java.util.List;
 
+import com.ceres.store.application.dto.OrderDto;
 import com.ceres.store.application.service.AdminService;
-import com.ceres.store.entity.GoodsEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,9 +25,14 @@ public class AdminController {
         adminService.createTypes(types);
     }
 
-    @GetMapping(value = "/notice/list/{userid}")
-    public List<GoodsEntity> notice() {
+    @GetMapping(value = "/notice/list/{userId}")
+    public List<OrderDto> notice(@PathVariable("userId") Long id) {
+        return adminService.notice(id);
+    }
 
+    @GetMapping(value = "/notice/clear/{userId}")
+    public void clearNotice(@PathVariable("userId") Long id) {
+        adminService.clear(id);
     }
 
 }
