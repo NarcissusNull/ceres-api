@@ -1,6 +1,7 @@
 package com.ceres.store.application.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.ceres.store.application.dto.GoodsCreateRequest;
@@ -41,7 +42,8 @@ public class GoodsService {
     }
 
     public List<GoodsEntity> queryGoods(int size) {
-        return goodsRepository.findAll().stream().filter(goods -> !goods.isDeleted()).collect(Collectors.toList()).subList(0, size);
+        return goodsRepository.findAll().stream().filter(goods -> !goods.isDeleted()).collect(Collectors.toList())
+                .subList(0, size);
     }
 
     public GoodsEntity getDetail(Long id) {
@@ -49,11 +51,13 @@ public class GoodsService {
     }
 
     public List<GoodsEntity> search(String value) {
-        return goodsRepository.findByNameLike("%" + value + "%").stream().filter(goods -> !goods.isDeleted()).collect(Collectors.toList());
+        return goodsRepository.findByNameLike("%" + value + "%").stream().filter(goods -> !goods.isDeleted())
+                .collect(Collectors.toList());
     }
 
     public List<GoodsEntity> searchCart(Long user) {
-        return cartRepository.findAllByUser(user).stream().map(cart -> goodsRepository.findById(cart.getGoods()).get()).collect(Collectors.toList());
+        return cartRepository.findAllByUser(user).stream().map(cart -> goodsRepository.findById(cart.getGoods()).get())
+                .collect(Collectors.toList());
     }
 
     public void removeCart(Long id, Long user) {
@@ -62,8 +66,23 @@ public class GoodsService {
 
     @Transactional
     public void delete(Long id) {
-        GoodsEntity goods =  goodsRepository.findById(id).get();
+        GoodsEntity goods = goodsRepository.findById(id).get();
         goods.setDeleted(true);
+    }
+
+    @Transactional
+    public GoodsEntity update(GoodsEntity request) {
+        GoodsEntity goods = goodsRepository.findById(request.getId()).get();
+        if (Objects.nonNull(request.getName())) {
+            goods.setName(request.getName());
+        }
+        if (Objects.nonNull(request.getPrice())) {
+            goods.setPrice(request.getPrice());
+        }
+        if (Objects.nonNull(request.getType())) {
+            goods.setType(request.getType());
+        }
+        return goods;
     }
 
 }

@@ -42,6 +42,11 @@ public class GoodsController {
         return goodsService.create(request);
     }
 
+    @PostMapping(value = "update")
+    public GoodsEntity update(@RequestBody GoodsEntity request) {
+        return goodsService.update(request);
+    }
+
     @GetMapping(value = "/{size}")
     public List<GoodsEntity> queryGoods(@PathVariable("size") int size) {
         return goodsService.queryGoods(size);

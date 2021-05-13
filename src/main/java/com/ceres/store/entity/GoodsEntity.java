@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,7 +36,10 @@ public class GoodsEntity {
     Long type;
     @Column(name = "[describe]")
     String describe;
+
+    @CreationTimestamp
     Date createdAt;
+    @UpdateTimestamp
     Date updatedAt;
     
     @Column(name="deleted",columnDefinition="tinyint default 0")

@@ -18,16 +18,19 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(name = "orders")
+@Table(name = "notice")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OrdersEntity{
+public class NoticeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
     Long user;
+    Date check;
+
     @CreationTimestamp
     Date createdAt;
     @UpdateTimestamp
