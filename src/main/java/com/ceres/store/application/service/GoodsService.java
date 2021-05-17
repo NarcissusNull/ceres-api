@@ -1,5 +1,6 @@
 package com.ceres.store.application.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -30,6 +31,11 @@ public class GoodsService {
     public List<GoodsEntity> search() {
         return goodsRepository.findAll().stream().filter(goods -> !goods.isDeleted()).collect(Collectors.toList());
     }
+    
+
+    public List<GoodsEntity> searchGoodsWithDelete() {
+        return goodsRepository.findAll();
+    }   
 
     public List<TypeEntity> queryTypes() {
         return typeRepository.findAll();

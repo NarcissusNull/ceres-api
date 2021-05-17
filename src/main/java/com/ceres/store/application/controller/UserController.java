@@ -3,6 +3,8 @@ package com.ceres.store.application.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 import com.ceres.store.application.service.UserService;
 import com.ceres.store.entity.UserEntity;
 import com.ceres.store.infrastructure.UserRepository;
@@ -37,6 +39,11 @@ public class UserController {
     @GetMapping(value = "/{id}")
     public UserEntity getUser(@PathVariable("id") Long id) {
         return userRepository.findById(id).get();
+    }
+
+    @GetMapping(value = "/all")
+    public List<UserEntity> all() {
+        return userRepository.findAll();
     }
     
 }

@@ -1,5 +1,6 @@
 package com.ceres.store.application.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.ceres.store.application.dto.GoodsCreateRequest;
@@ -30,6 +31,11 @@ public class GoodsController {
     @GetMapping(value = "/search")
     public List<GoodsEntity> searchGoods() {
         return goodsService.search();
+    }
+
+    @GetMapping(value = "/search/all")
+    public List<GoodsEntity> searchGoodsWithDelete() {
+        return goodsService.searchGoodsWithDelete();
     }
 
     @GetMapping(value = "/types")
