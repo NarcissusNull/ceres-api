@@ -31,20 +31,19 @@ public class GoodsService {
     public List<GoodsEntity> search() {
         return goodsRepository.findAll().stream().filter(goods -> !goods.isDeleted()).collect(Collectors.toList());
     }
-    
 
     public List<GoodsEntity> searchGoodsWithDelete() {
         return goodsRepository.findAll();
-    }   
+    }
 
     public List<TypeEntity> queryTypes() {
         return typeRepository.findAll();
     }
 
     public GoodsEntity create(GoodsCreateRequest request) {
-        return goodsRepository.save(
-                GoodsEntity.builder().name(request.getName()).price(request.getPrice()).main(request.getImages().get(0))
-                        .describe(request.getImages().stream().collect(Collectors.joining(","))).build());
+        return goodsRepository.save(GoodsEntity.builder().name(request.getName()).price(request.getPrice())
+                .type(request.getType()).main(request.getImages().get(0))
+                .describe(request.getImages().stream().collect(Collectors.joining(","))).build());
     }
 
     public List<GoodsEntity> queryGoods(int size) {
@@ -89,6 +88,12 @@ public class GoodsService {
             goods.setType(request.getType());
         }
         return goods;
+    }
+
+    public List<GoodsEntity> type(Long value) {
+        return goodsRepository.findAll().stream().filter(goods -> goods.getType() != null)
+                .filter(goods -> goods.getType().equals(value)).filter(goods -> !goods.isDeleted())
+                .collect(Collectors.toList());
     }
 
 }

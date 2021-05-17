@@ -80,4 +80,30 @@ public class AdminService {
         noticeEntity.setCheck(new Date());
     }
 
+    public List<OrderDto> oldOrder(Long id) {
+        List<OrderDto> results = new ArrayList<>();
+        Optional<NoticeEntity> noticeEntityOptional = noticeRepository.findByUser(id);
+        
+        if(!noticeEntityOptional.isPresent()) {
+            noticeRepository.save(NoticeEntity.builder().user(id).check(new Date()).build());
+            return results;
+        }
+
+        NoticeEntity noticeEntity = noticeEntityOptional.get();
+
+        if(noticeEntity.getCheck() == null) {
+            noticeEntity.setCheck(new Date());
+        }
+
+        ordersRepository.findAll().stream().filter(order -> order.getCreatedAt().before(noticeEntity.getCheck()))
+                .forEach(order -> {
+                    List<ItemsEntity> saved = itemsRepository.findByOrder(order.getId());
+                    OrderDto orderDto = OrderDto.builder().id(order.getId()).user(order.getUser())
+                            .goods(saved.stream().map(s -> s.getGoods()).collect(Collectors.toList())).build();
+                    results.add(orderDto);
+                });
+
+        return results;
+    }
+
 }

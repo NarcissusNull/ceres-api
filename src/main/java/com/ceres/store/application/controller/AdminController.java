@@ -30,9 +30,15 @@ public class AdminController {
         return adminService.notice(id);
     }
 
+    @GetMapping(value = "/notice/old/order/list/{userId}")
+    public List<OrderDto> oldOrder(@PathVariable("userId") Long id) {
+        return adminService.oldOrder(id);
+    }
+
     @GetMapping(value = "/notice/clear/{userId}")
     public void clearNotice(@PathVariable("userId") Long id) {
         adminService.clear(id);
     }
+
 
 }

@@ -68,6 +68,11 @@ public class GoodsController {
         return goodsService.search(value);
     }
 
+    @GetMapping(value = "/type/{value}")
+    public List<GoodsEntity> search(@PathVariable("value") Long value) {
+        return goodsService.type(value);
+    }
+
     @GetMapping(value = "/cart/{id}/{user}")
     public CartEntity createCart(@PathVariable("id") Long id, @PathVariable("user") Long user) {
         return cartRepository.save(CartEntity.builder().goods(id).user(user).build());
