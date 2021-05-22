@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -44,4 +45,8 @@ public class GoodsEntity {
     
     @Column(name="deleted",columnDefinition="tinyint default 0")
     boolean deleted;
+
+    @Column(name="[rate]", columnDefinition="DECIMAL(10,2) DEFAULT 1.0")
+    @ColumnDefault("1.0")
+    BigDecimal rate;
 }

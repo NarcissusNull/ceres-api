@@ -1,0 +1,1 @@
+ALTER TABLE `goods` ADD `rate` DECIMAL(10,2) DEFAULT 1.0; 
