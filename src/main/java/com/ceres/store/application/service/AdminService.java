@@ -51,15 +51,15 @@ public class AdminService {
     public List<OrderDto> notice(Long id) {
         List<OrderDto> results = new ArrayList<>();
         Optional<NoticeEntity> noticeEntityOptional = noticeRepository.findByUser(id);
-        
-        if(!noticeEntityOptional.isPresent()) {
+
+        if (!noticeEntityOptional.isPresent()) {
             noticeRepository.save(NoticeEntity.builder().user(id).check(new Date()).build());
             return results;
         }
 
         NoticeEntity noticeEntity = noticeEntityOptional.get();
 
-        if(noticeEntity.getCheck() == null) {
+        if (noticeEntity.getCheck() == null) {
             noticeEntity.setCheck(new Date());
         }
 
@@ -83,15 +83,15 @@ public class AdminService {
     public List<OrderDto> oldOrder(Long id) {
         List<OrderDto> results = new ArrayList<>();
         Optional<NoticeEntity> noticeEntityOptional = noticeRepository.findByUser(id);
-        
-        if(!noticeEntityOptional.isPresent()) {
+
+        if (!noticeEntityOptional.isPresent()) {
             noticeRepository.save(NoticeEntity.builder().user(id).check(new Date()).build());
             return results;
         }
 
         NoticeEntity noticeEntity = noticeEntityOptional.get();
 
-        if(noticeEntity.getCheck() == null) {
+        if (noticeEntity.getCheck() == null) {
             noticeEntity.setCheck(new Date());
         }
 
@@ -102,6 +102,18 @@ public class AdminService {
                             .goods(saved.stream().map(s -> s.getGoods()).collect(Collectors.toList())).build();
                     results.add(orderDto);
                 });
+
+        return results;
+    }
+
+    public List<OrderDto> myOrder(Long id) {
+        List<OrderDto> results = new ArrayList<>();
+        ordersRepository.findAllByUser(id).forEach(order -> {
+            List<ItemsEntity> saved = itemsRepository.findByOrder(order.getId());
+            OrderDto orderDto = OrderDto.builder().id(order.getId()).user(order.getUser())
+                    .goods(saved.stream().map(s -> s.getGoods()).collect(Collectors.toList())).build();
+            results.add(orderDto);
+        });
 
         return results;
     }
