@@ -1,0 +1,1 @@
+ALTER TABLE `goods` ADD `size` VARCHAR(20) DEFAULT '500g'; 

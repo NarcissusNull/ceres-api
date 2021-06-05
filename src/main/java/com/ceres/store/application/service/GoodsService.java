@@ -41,9 +41,10 @@ public class GoodsService {
     }
 
     public GoodsEntity create(GoodsCreateRequest request) {
-        return goodsRepository.save(GoodsEntity.builder().name(request.getName()).price(request.getPrice())
-                .type(request.getType()).main(request.getImages().get(0)).rate(BigDecimal.valueOf(1.0))
-                .describe(request.getImages().stream().collect(Collectors.joining(","))).build());
+        return goodsRepository
+                .save(GoodsEntity.builder().name(request.getName()).price(request.getPrice()).type(request.getType())
+                        .main(request.getImages().get(0)).rate(BigDecimal.valueOf(1.0)).size(request.getSize())
+                        .describe(request.getImages().stream().collect(Collectors.joining(","))).build());
     }
 
     public List<GoodsEntity> queryGoods(int size) {
@@ -89,6 +90,9 @@ public class GoodsService {
         }
         if (Objects.nonNull(request.getRate())) {
             goods.setRate(request.getRate());
+        }
+        if (Objects.nonNull(request.getSize())) {
+            goods.setSize(request.getSize());
         }
         return goods;
     }

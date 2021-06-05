@@ -12,4 +12,5 @@ public class GoodsCreateRequest {
     private BigDecimal price;
     private long type;
     private List<String> images;
+    private String size;
 }

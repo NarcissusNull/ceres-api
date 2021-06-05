@@ -49,4 +49,6 @@ public class GoodsEntity {
     @Column(name="[rate]", columnDefinition="DECIMAL(10,2) DEFAULT 1.0")
     @ColumnDefault("1.0")
     BigDecimal rate;
+
+    String size;
 }
