@@ -31,6 +31,11 @@ public class UserController {
         return userService.login(user);
     }
 
+    @PostMapping(value="/changeUserInfo")
+    public UserEntity changeUserInfo(@RequestBody UserEntity user) {
+        return userService.changeUserInfo(user);
+    }
+
     @PostMapping(value="/signup")
     public UserEntity signup(@RequestBody UserEntity user) {
         return userService.signup(user);
