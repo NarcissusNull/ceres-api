@@ -1,0 +1,1 @@
+ALTER TABLE `items` ADD `nums` int DEFAULT 1; 

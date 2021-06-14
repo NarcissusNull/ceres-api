@@ -67,7 +67,8 @@ public class AdminService {
                 .forEach(order -> {
                     List<ItemsEntity> saved = itemsRepository.findByOrder(order.getId());
                     OrderDto orderDto = OrderDto.builder().id(order.getId()).user(order.getUser())
-                            .goods(saved.stream().map(s -> s.getGoods()).collect(Collectors.toList())).build();
+                            .goods(saved.stream().map(s -> s.getGoods()).collect(Collectors.toList()))
+                            .nums(saved.stream().map(s -> s.getNums()).collect(Collectors.toList())).build();
                     results.add(orderDto);
                 });
 
@@ -99,7 +100,8 @@ public class AdminService {
                 .forEach(order -> {
                     List<ItemsEntity> saved = itemsRepository.findByOrder(order.getId());
                     OrderDto orderDto = OrderDto.builder().id(order.getId()).user(order.getUser())
-                            .goods(saved.stream().map(s -> s.getGoods()).collect(Collectors.toList())).build();
+                            .goods(saved.stream().map(s -> s.getGoods()).collect(Collectors.toList()))
+                            .nums(saved.stream().map(s -> s.getNums()).collect(Collectors.toList())).build();
                     results.add(orderDto);
                 });
 
@@ -111,7 +113,8 @@ public class AdminService {
         ordersRepository.findAllByUser(id).forEach(order -> {
             List<ItemsEntity> saved = itemsRepository.findByOrder(order.getId());
             OrderDto orderDto = OrderDto.builder().id(order.getId()).user(order.getUser())
-                    .goods(saved.stream().map(s -> s.getGoods()).collect(Collectors.toList())).build();
+                    .goods(saved.stream().map(s -> s.getGoods()).collect(Collectors.toList()))
+                    .nums(saved.stream().map(s -> s.getNums()).collect(Collectors.toList())).build();
             results.add(orderDto);
         });
 

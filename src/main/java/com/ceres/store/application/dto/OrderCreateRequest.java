@@ -9,4 +9,5 @@ public class OrderCreateRequest {
 
     private Long user;
     private List<Long> goods;
+    private List<Long> nums;
 }

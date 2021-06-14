@@ -28,6 +28,7 @@ public class ItemsEntity {
     @Column(name = "[order]")
     Long order;
     Long goods;
+    Long nums;
     Date createdAt;
     Date updatedAt;
 }

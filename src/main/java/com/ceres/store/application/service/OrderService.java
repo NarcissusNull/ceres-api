@@ -27,6 +27,9 @@ public class OrderService {
         List<ItemsEntity> items = request.getGoods().stream()
                 .map(goods -> ItemsEntity.builder().order(order.getId()).goods(goods).build())
                 .collect(Collectors.toList());
+                for (int i = 0; i < items.size(); i++) {
+                    items.get(i).setNums(request.getNums().get(i));
+                }
         List<ItemsEntity> saved = itemsRepository.saveAll(items);
         return OrderDto.builder().id(order.getId()).user(order.getUser())
                 .goods(saved.stream().map(s -> s.getGoods()).collect(Collectors.toList())).build();
